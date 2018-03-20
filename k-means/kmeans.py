@@ -71,12 +71,12 @@ sys.stdout.write('Num of samples:  '  + str(data.shape[0])+ '\n')
 
 
 #-------------------------------------------
-#    Make clusters
+#    Make clusters and labels
 #-------------------------------------------
 
 kmeans = KMeans(n_clusters=NClust, random_state=0,max_iter=30000).fit(data)
 centers =  kmeans.cluster_centers_
-
+labels = kmeans.labels_
 
 
 #-------------------------------------------
@@ -98,19 +98,8 @@ CentersFile.close()
 #-------------------------------------------
 OutputFile = open(OutputFile,'w')
 
-for i in range(data.shape[0]):
-
-    array = []
-
-    for j in range(centers.shape[0]):
-        point  = data[i,:]
-        center = centers[j,:]
-        dist = np.linalg.norm(point-center)
-        array.append( dist )    
-    
-    n = np.argmin( array ) + 1
-
-    OutputFile.write('%8i %8i \n' %(i,n))
+for i in range(labels.shape[0]):
+    OutputFile.write('%8i %8i \n' %(i+1,labels[i]))
 
 OutputFile.close()    
     
