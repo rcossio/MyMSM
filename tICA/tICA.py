@@ -69,3 +69,66 @@ w = w[::-1]
 v = v[:,::-1]
 
 
+#-------------------------------------------
+#    AMUSE algorithm 
+#-------------------------------------------
+
+#Get principal components
+y = np.dot(data,v)
+
+#Normalizing data (check if sense is correct)
+y = np.dot(y,np.diag(w))
+
+#Generate time-lagged covariance matrix
+N = y.shape[0]
+dim = y.shape[1]
+C = np.zeros((dim,dim),dtype=np.float64)
+
+for i in range(dim):
+    for j in range(dim):
+        for k in range(N-LagTime):
+            C[i,j] += y[k,i]*y[k+LagTime,j]
+        C[i,j] /= N-LagTime-1
+              
+
+
+#Create symmetrized covariance matrix
+C = 0.5 *(C+ np.transpose(C))
+
+#Decompose
+w, v = np.linalg.eigh( C )
+
+w = w[::-1]
+v = v[:,::-1]
+
+#Project data
+P = v[:,0:NVectors]
+z = np.dot(y,P)
+
+
+#-------------------------------------------
+#    Write spectrum file
+#-------------------------------------------
+SpectrumFile = open(SpectrumFile,'w')
+
+for i in range(w.size):
+    SpectrumFile.write('%8i %12.6f \n' %( i+1, w[i] ))
+
+SpectrumFile.close()
+
+
+#-------------------------------------------
+#    Write data
+#-------------------------------------------
+OutputFile = open(OutputFile,'w')
+
+for i in range(z.shape[0]):
+
+    OutputFile.write('%8i' %(i+1))
+    for j in range(z.shape[1]):
+        OutputFile.write('%12.6f ' %z[i,j])
+    OutputFile.write('\n')
+
+OutputFile.close()
+
+
