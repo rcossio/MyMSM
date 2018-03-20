@@ -74,7 +74,7 @@ sys.stdout.write('Num of samples:  '  + str(data.shape[0])+ '\n')
 #    Make clusters
 #-------------------------------------------
 
-kmeans = KMeans(n_clusters=NClust, random_state=0,max_iter=3000).fit(data)
+kmeans = KMeans(n_clusters=NClust, random_state=0,max_iter=30000).fit(data)
 centers =  kmeans.cluster_centers_
 
 

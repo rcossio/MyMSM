@@ -1,0 +1,58 @@
+TICA---------------------------------
+tICA(commute_mapping=False, kinetic_mapping=False, lag_time=1, n_components=4,
+   shrinkage=None)
+Fitting model...
+*********
+*RESULTS*
+*********
+time-structure based Independent Components Analysis (tICA)
+-----------------------------------------------------------
+n_components        : 4
+shrinkage           : 0.00116862432817
+lag_time            : 1
+kinetic_mapping     : False
+
+Top 5 timescales :
+[ 162.15350253   46.79824726   19.05473797   12.78851455]
+
+Top 5 eigenvalues :
+[ 0.99385198  0.97885836  0.94887293  0.92478392]
+
+--------------------------------------------------------------------------------
+
+Saving transformed dataset to 'tica_trajs.h5'
+To load this dataset interactive inside an IPython
+shell or notebook, run
+
+  $ ipython
+  >>> from msmbuilder.dataset import dataset
+  >>> ds = dataset('tica_trajs.h5')
+
+Saving "tica_model.pkl"... (<class 'msmbuilder.decomposition.tica.tICA'>)
+To load this tICA object interactively inside an IPython
+shell or notebook, run: 
+
+  $ ipython
+  >>> from msmbuilder.utils import load
+  >>> model = load('tica_model.pkl')
+
+KMEANS----------------------------------
+MiniBatchKMeans(batch_size=100, compute_labels=True, init='k-means++',
+        init_size=None, max_iter=100, max_no_improvement=10, n_clusters=5,
+        n_init=3, random_state=None, reassignment_ratio=0.01, tol=0.0,
+        verbose=0)
+Fitting model...
+*********
+*RESULTS*
+*********
+NotImplemented
+--------------------------------------------------------------------------------
+
+Saving transformed dataset to 'labeled_trajs.h5'
+To load this dataset interactive inside an IPython
+shell or notebook, run
+
+  $ ipython
+  >>> from msmbuilder.dataset import dataset
+  >>> ds = dataset('labeled_trajs.h5')
+

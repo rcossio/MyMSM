@@ -62,22 +62,21 @@ data = np.array(data,dtype=np.float64)
 #    Make PCA
 #-------------------------------------------
 
-C = np.cov(np.transpose(data))
-w, v = np.linalg.eigh( C )
+C = np.cov( np.transpose(data) )
+w, v = np.linalg.eigh( C)
 
 w = w[::-1]
 v = v[:,::-1]
 
-
 #-------------------------------------------
 #    AMUSE algorithm 
 #-------------------------------------------
-
-#Get principal components
+# Get principal components
 y = np.dot(data,v)
 
-#Normalizing data (check if sense is correct)
-y = np.dot(y,np.diag(w))
+#Normalizing data
+f = np.sqrt(1/w)
+y = np.dot(y,np.diag(f))
 
 #Generate time-lagged covariance matrix
 N = y.shape[0]
